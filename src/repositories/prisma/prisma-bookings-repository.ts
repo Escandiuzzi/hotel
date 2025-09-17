@@ -1,5 +1,5 @@
 import { prisma } from "../../prisma";
-import { BookingCreateData, BookingsRepository } from "../bookings-repository";
+import { BookingCreateData, BookingData, BookingsRepository } from "../bookings-repository";
 
 export class PrismaBookingsRepository implements BookingsRepository {
     async create({ entryDate, departureDate, status }: BookingCreateData) {
@@ -13,6 +13,14 @@ export class PrismaBookingsRepository implements BookingsRepository {
     }
 
     async getAll() {
-        return await prisma.booking.findMany();
+        var bookings = await prisma.booking.findMany({
+            select: {
+                entryDate: true,
+                departureDate: true,
+                status: true
+            }
+        });
+
+        return bookings as BookingData[];
     }
 }

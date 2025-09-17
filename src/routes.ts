@@ -3,6 +3,9 @@ import express from 'express';
 import { PrismaEmployeesRepository } from './repositories/prisma/prisma-employees-repository';
 import { PrismaBookingsRepository } from './repositories/prisma/prisma-bookings-repository';
 
+import { CreateBookingUseCase } from './use-cases/booking/create-booking-use-case';
+import { GetAllBookingsUseCase } from './use-cases/booking/get-all-bookings-use-case';
+
 import { CreateEmployeeUseCase } from './use-cases/employee/create-employee-use-case';
 import { LoginEmployeeUseCase } from './use-cases/employee/login-employee-use-case';
 import { GetAllEmployeesUseCase } from './use-cases/employee/get-all-employees-use-case';
@@ -46,6 +49,30 @@ routes.get('/employees', async (req, res) => {
   const createEmployeeUseCase = new GetAllEmployeesUseCase(prismaRepository);
 
   var result = await createEmployeeUseCase.execute();
+
+  return res.status(200).send(result);
+});
+
+routes.post('/bookings', async (req, res) => {
+
+  const { entryDate, departureDate, status } = req.body;
+
+  const prismaRepository = new PrismaBookingsRepository();
+
+  const createBookingUseCase = new CreateBookingUseCase(prismaRepository);
+
+  await createBookingUseCase.execute({ entryDate, departureDate, status });
+
+  return res.status(201).send();
+});
+
+routes.get('/bookings', async (req, res) => {
+
+  const prismaRepository = new PrismaBookingsRepository();
+
+  const getAllBookingsUseCase = new GetAllBookingsUseCase(prismaRepository);
+
+  var result = await getAllBookingsUseCase.execute();
 
   return res.status(200).send(result);
 });

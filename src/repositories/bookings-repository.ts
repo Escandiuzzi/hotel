@@ -1,18 +1,17 @@
-import { EmployeeMinimalData } from "./employees-repository";
-
 export interface BookingCreateData {
-    entryDate: string;
-    departureDate: string;
-    status: number;
+    entryDate: Date;
+    departureDate: Date;
+    status: string;
 }
 
-export interface BookingGetAllData {
-    entryDate: string;
-    departureDate: string;
-    status: number;
+export interface BookingData {
+    entryDate: Date;
+    departureDate: Date;
+    status: string;
 }
+
 
 export interface BookingsRepository {
     create: (data: BookingCreateData) => Promise<void>;
-    getAll: () => Promise<EmployeeMinimalData | null>;
+    getAll: () => Promise<BookingData[] | null>;
 }
