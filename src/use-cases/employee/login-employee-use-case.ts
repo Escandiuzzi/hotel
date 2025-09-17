@@ -25,8 +25,6 @@ export class LoginEmployeeUseCase {
             password
         });
 
-        console.log(employee);
-
         if (!employee) {
             throw new Error('Invalid credentials');
         }
