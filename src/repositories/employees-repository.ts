@@ -10,6 +10,6 @@ export interface EmployeeGetAllData {
 }
 
 export interface EmployeesRepository {
-    create: (data : EmployeeCreateData) => Promise<void>;
-    getAll: () => Promise<EmployeeGetAllData | null>;
+    create: (data: EmployeeCreateData) => Promise<void>;
+    getAll: () => Promise<EmployeeGetAllData[] | null>;
 }

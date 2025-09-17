@@ -1,5 +1,5 @@
 import { prisma } from "../../prisma";
-import { EmployeeCreateData, EmployeesRepository } from "../employees-repository";
+import { EmployeeCreateData, EmployeeGetAllData, EmployeesRepository } from "../employees-repository";
 import crypto from "crypto";
 
 export class PrismaEmployeesRepository implements EmployeesRepository {
@@ -15,7 +15,14 @@ export class PrismaEmployeesRepository implements EmployeesRepository {
         });
     }
 
-    async getAll() {
-        return await prisma.employee.findMany();
-    }
+   async getAll(): Promise<EmployeeGetAllData[]> {
+    const employees = await prisma.employee.findMany({
+        select: {
+            name: true,
+            login: true
+        }
+    });
+
+    return employees as EmployeeGetAllData[];
+}
 }
