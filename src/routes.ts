@@ -3,13 +3,14 @@ import express from 'express';
 import { PrismaEmployeesRepository } from './repositories/prisma/prisma-employees-repository';
 import { PrismaBookingsRepository } from './repositories/prisma/prisma-bookings-repository';
 
-import { CreateEmployeeUseCase } from './use-cases/create-employee-use-case';
-import { GetAllEmployeesUseCase } from './use-cases/get-all-employees-use-case';
+import { CreateEmployeeUseCase } from './use-cases/employee/create-employee-use-case';
+import { LoginEmployeeUseCase } from './use-cases/employee/login-employee-use-case';
+import { GetAllEmployeesUseCase } from './use-cases/employee/get-all-employees-use-case';
 
 export const routes = express.Router();
 
 routes.get('/', (req, res) => {
-  res.send('Hello World!')
+  res.send('Hello World! - Hotel API');
 })
 
 routes.post('/employees', async (req, res) => {
@@ -21,8 +22,21 @@ routes.post('/employees', async (req, res) => {
   const createEmployeeUseCase = new CreateEmployeeUseCase(prismaRepository);
 
   await createEmployeeUseCase.execute({ name, login, password });
-  
+
   return res.status(201).send();
+});
+
+routes.post('/employees/login', async (req, res) => {
+
+  const { login, password } = req.body;
+
+  const prismaRepository = new PrismaEmployeesRepository();
+
+  const loginEmployeeUseCase = new LoginEmployeeUseCase(prismaRepository);
+
+  var result = await loginEmployeeUseCase.execute({ login, password });
+
+  return res.status(201).send(result);
 });
 
 routes.get('/employees', async (req, res) => {

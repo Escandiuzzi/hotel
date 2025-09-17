@@ -1,4 +1,4 @@
-import { EmployeeGetAllData } from "./employees-repository";
+import { EmployeeMinimalData } from "./employees-repository";
 
 export interface BookingCreateData {
     entryDate: string;
@@ -14,5 +14,5 @@ export interface BookingGetAllData {
 
 export interface BookingsRepository {
     create: (data: BookingCreateData) => Promise<void>;
-    getAll: () => Promise<EmployeeGetAllData | null>;
+    getAll: () => Promise<EmployeeMinimalData | null>;
 }

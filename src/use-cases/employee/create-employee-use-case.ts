@@ -1,4 +1,4 @@
-import { EmployeesRepository } from "../repositories/employees-repository";
+import { EmployeesRepository } from "../../repositories/employees-repository";
 
 interface CreateEmployeeUseCaseRequest {
     name: string;

@@ -18,7 +18,7 @@ model Employee {
   id String @id @default(uuid())
 
   name  String
-  login String
+  login String @unique
   password String
 
   @@map("employees")

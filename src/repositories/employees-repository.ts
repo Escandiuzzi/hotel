@@ -4,12 +4,18 @@ export interface EmployeeCreateData {
     password: string;
 }
 
-export interface EmployeeGetAllData {
+export interface EmployeeLoginData {
+    login: string;
+    password: string;
+}
+
+export interface EmployeeMinimalData {
     name: string;
     login: string;
 }
 
 export interface EmployeesRepository {
     create: (data: EmployeeCreateData) => Promise<void>;
-    getAll: () => Promise<EmployeeGetAllData[] | null>;
+    get: (data: EmployeeLoginData) => Promise<EmployeeMinimalData | null>;
+    getAll: () => Promise<EmployeeMinimalData[] | null>;
 }
