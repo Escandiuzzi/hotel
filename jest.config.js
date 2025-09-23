@@ -12,5 +12,12 @@ module.exports = {
     "/node_modules/",
     "/dist/",
     "/prisma/"
+  ],
+  reporters: [
+    'default',
+    ['jest-junit', {
+      outputDirectory: 'test-reports',
+      outputName: 'junit.xml',
+    }]
   ]
 };
