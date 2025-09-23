@@ -17,19 +17,35 @@ datasource db {
 model Employee {
   id String @id @default(uuid())
 
-  name  String
-  login String @unique
+  name     String
+  login    String @unique
   password String
 
   @@map("employees")
 }
 
 model Booking {
-  id String @id @default(uuid())
+  id              String   @id @default(uuid())
+  reservationDate DateTime?
+  entryDate       DateTime
+  departureDate   DateTime
+  status          String
+  room            String?
 
-  entryDate   DateTime
-  departureDate DateTime
-  status      String
+  guestId String
+  guest   Guest  @relation(fields: [guestId], references: [id])
 
   @@map("bookings")
+}
+
+model Guest {
+  id String @id @default(uuid())
+
+  name     String
+  phone    String
+  email    String    @unique
+  document String    @unique
+  Booking  Booking[]
+
+  @@map("guests")
 }
