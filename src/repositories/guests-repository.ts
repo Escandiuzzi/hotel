@@ -13,7 +13,6 @@ export interface GuestData {
     document: string;
 }
 
-
 export interface GuestsRepository {
     create: (data: GuestCreateData) => Promise<string>;
     getAll: () => Promise<GuestData[] | null>;

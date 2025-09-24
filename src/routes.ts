@@ -65,8 +65,8 @@ routes.post('/bookings', async (req, res) => {
 
   await createBookingUseCase.execute({
     guestId,
-    room,              // optional
-    reservationDate,   // optional
+    room,
+    reservationDate,
     entryDate,
     departureDate,
     status
