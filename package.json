@@ -5,9 +5,10 @@
   "main": "index.js",
   "scripts": {
     "build": "tsc",
-    "start": "node dist/server.js",
     "prisma:generate": "prisma generate",
     "prisma:migrate": "prisma migrate deploy",
+    "postinstall": "prisma generate",
+    "start": "node dist/server.js",
     "dev": "nodemon --exec ts-node src/server.ts",
     "test": "jest"
   },
