@@ -1,15 +1,17 @@
+import 'dotenv/config';
 import express from 'express';
 import cors from 'cors';
 import { routes } from './routes';
 
 const app = express();
 
-app.use(cors({
-    origin: 'http://localhost:3000',
-}));
+const PORT = process.env.PORT || 3333;
+const allowedOrigin = process.env.FRONTEND_URL || 'http://localhost:3000';
+
+app.use(cors({ origin: allowedOrigin }));
 app.use(express.json());
 app.use(routes);
 
-app.listen(process.env.PORT || 3333, () => {
-    console.log('HTTP server is running on http://localhost:3333');
-})
+app.listen(PORT, () => {
+  console.log(`HTTP server is running on port ${PORT}`);
+});
