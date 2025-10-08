@@ -6,6 +6,7 @@ import { PrismaGuestsRepository } from './repositories/prisma/prisma-guests-repo
 
 import { CreateBookingUseCase } from './use-cases/booking/create-booking-use-case';
 import { GetAllBookingsUseCase } from './use-cases/booking/get-all-bookings-use-case';
+import { UpdateBookingUseCase } from './use-cases/booking/update-booking-use-case';
 
 import { CreateEmployeeUseCase } from './use-cases/employee/create-employee-use-case';
 import { LoginEmployeeUseCase } from './use-cases/employee/login-employee-use-case';
@@ -13,7 +14,7 @@ import { GetAllEmployeesUseCase } from './use-cases/employee/get-all-employees-u
 
 import { CreateGuestUseCase } from './use-cases/guest/create-guest-use-case';
 import { GetAllGuestsUseCase } from './use-cases/guest/get-all-guests-use-case';
-import { UpdateBookingUseCase } from './use-cases/booking/update-booking-use-case';
+import { UpdateGuestUseCase } from './use-cases/guest/update-guest-use-case';
 
 export const routes = express.Router();
 
@@ -118,6 +119,19 @@ routes.post('/guests', async (req, res) => {
   var id = await createGuestUseCase.execute({ name, phone, email, document });
 
   return res.status(201).send({ id });
+});
+
+routes.put('/guests/:id', async (req, res) => {
+  const { id } = req.params;
+  const { name, phone, email, document } = req.body;
+
+  const prismaRepository = new PrismaGuestsRepository();
+
+  const updateGuestUseCase = new UpdateGuestUseCase(prismaRepository);
+
+  var result = await updateGuestUseCase.execute({ id, name, phone, email, document });
+
+  return res.status(200).send(result);
 });
 
 routes.get('/guests', async (req, res) => {

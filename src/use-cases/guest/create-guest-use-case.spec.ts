@@ -8,6 +8,7 @@ describe("CreateGuestUseCase", () => {
     beforeEach(() => {
         guestsRepository = {
             create: jest.fn(),
+            update: jest.fn(),
             getAll: jest.fn(),
         };
         createGuestUseCase = new CreateGuestUseCase(guestsRepository);
