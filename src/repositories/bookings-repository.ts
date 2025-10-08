@@ -8,6 +8,7 @@ export interface BookingCreateData {
 }
 
 export interface BookingData {
+    id: string;
     guestName: string;
     room: string;
     reservationDate: Date;
@@ -17,6 +18,7 @@ export interface BookingData {
 }
 
 export interface BookingsRepository {
-    create: (data: BookingCreateData) => Promise<void>;
+    create: (data: BookingCreateData) => Promise<string>;
+    update: (id: string, data: Partial<BookingCreateData>) => Promise<BookingData | null>;
     getAll: () => Promise<BookingData[] | null>;
 }

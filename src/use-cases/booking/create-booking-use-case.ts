@@ -32,7 +32,7 @@ export class CreateBookingUseCase {
             throw new Error('Status is required');
         }
 
-        await this.bookingsRepository.create({
+        var id = await this.bookingsRepository.create({
             guestId,
             room,
             reservationDate,
@@ -40,5 +40,7 @@ export class CreateBookingUseCase {
             departureDate,
             status
         });
+
+        return id;
     }
 }

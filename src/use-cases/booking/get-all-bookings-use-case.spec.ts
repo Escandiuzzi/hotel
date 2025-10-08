@@ -8,6 +8,7 @@ describe("GetAllBookingsUseCase", () => {
     beforeEach(() => {
         bookingsRepository = {
             create: jest.fn(),
+            update: jest.fn(),
             getAll: jest.fn(),
         };
         getAllBookingsUseCase = new GetAllBookingsUseCase(bookingsRepository);
@@ -16,6 +17,7 @@ describe("GetAllBookingsUseCase", () => {
     it("should return all bookings from the repository", async () => {
         const mockBookings = [
             {
+                id: "booking-1",
                 guestName: "Alice",
                 room: "101",
                 reservationDate: new Date("2025-09-20T10:00:00Z"),
@@ -24,6 +26,7 @@ describe("GetAllBookingsUseCase", () => {
                 status: "CONFIRMED",
             },
             {
+                id: "booking-2",
                 guestName: "Bob",
                 room: "202",
                 reservationDate: new Date("2025-09-21T10:00:00Z"),

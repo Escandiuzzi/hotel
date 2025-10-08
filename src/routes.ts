@@ -13,6 +13,7 @@ import { GetAllEmployeesUseCase } from './use-cases/employee/get-all-employees-u
 
 import { CreateGuestUseCase } from './use-cases/guest/create-guest-use-case';
 import { GetAllGuestsUseCase } from './use-cases/guest/get-all-guests-use-case';
+import { UpdateBookingUseCase } from './use-cases/booking/update-booking-use-case';
 
 export const routes = express.Router();
 
@@ -63,7 +64,7 @@ routes.post('/bookings', async (req, res) => {
   const prismaRepository = new PrismaBookingsRepository();
   const createBookingUseCase = new CreateBookingUseCase(prismaRepository);
 
-  await createBookingUseCase.execute({
+  var id = await createBookingUseCase.execute({
     guestId,
     room,
     reservationDate,
@@ -72,7 +73,27 @@ routes.post('/bookings', async (req, res) => {
     status
   });
 
-  return res.status(201).send();
+  return res.status(201).send(id);
+});
+
+routes.put('/bookings/:id', async (req, res) => {
+  const { id } = req.params;
+  const { guestId, room, reservationDate, entryDate, departureDate, status } = req.body;
+
+  const prismaRepository = new PrismaBookingsRepository();
+  const updateBookingUseCase = new UpdateBookingUseCase(prismaRepository);
+
+  var result = await updateBookingUseCase.execute({
+    id,
+    guestId,
+    room,
+    reservationDate,
+    entryDate,
+    departureDate,
+    status
+  });
+
+  return res.status(200).send(result);
 });
 
 routes.get('/bookings', async (req, res) => {

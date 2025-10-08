@@ -13,7 +13,7 @@ export class PrismaBookingsRepository implements BookingsRepository {
             throw new Error("Guest not found");
         }
 
-        await prisma.booking.create({
+        var { id } = await prisma.booking.create({
             data: {
                 entryDate,
                 departureDate,
@@ -26,24 +26,40 @@ export class PrismaBookingsRepository implements BookingsRepository {
             },
         });
 
+        return id;
+    }
 
-        await prisma.booking.create({
+    async update(id: string, data: Partial<BookingCreateData>): Promise<BookingData | null> {
+        const updatedBooking = await prisma.booking.update({
+            where: { id },
             data: {
-                entryDate,
-                departureDate,
-                status,
-                guest: {
-                    connect: { id: guestId },
-                },
-                ...(room !== undefined ? { room } : {}),
-                ...(reservationDate !== undefined ? { reservationDate } : {}),
+                ...(data.guestId !== undefined ? { guest: { connect: { id: data.guestId } } } : {}),
+                ...(data.room !== undefined ? { room: data.room } : {}),
+                ...(data.reservationDate !== undefined ? { reservationDate: data.reservationDate } : {}),
+                ...(data.entryDate !== undefined ? { entryDate: data.entryDate } : {}),
+                ...(data.departureDate !== undefined ? { departureDate: data.departureDate } : {}),
+                ...(data.status !== undefined ? { status: data.status } : {}),
+            },
+            include: {
+                guest: true,
             },
         });
+
+        return {
+            id: updatedBooking.id,
+            guestName: updatedBooking.guest.name,
+            room: updatedBooking.room,
+            reservationDate: updatedBooking.reservationDate,
+            entryDate: updatedBooking.entryDate,
+            departureDate: updatedBooking.departureDate,
+            status: updatedBooking.status,
+        } as BookingData;
     }
 
     async getAll() {
         const bookings = await prisma.booking.findMany({
             select: {
+                id: true,
                 reservationDate: true,
                 entryDate: true,
                 departureDate: true,
@@ -58,6 +74,7 @@ export class PrismaBookingsRepository implements BookingsRepository {
         });
 
         return bookings.map(b => ({
+            id: b.id,
             guestName: b.guest.name,
             room: b.room,
             reservationDate: b.reservationDate,

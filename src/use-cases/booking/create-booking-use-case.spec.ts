@@ -8,6 +8,7 @@ describe("CreateBookingUseCase", () => {
     beforeEach(() => {
         bookingsRepository = {
             create: jest.fn(),
+            update: jest.fn(),
             getAll: jest.fn(),
         };
         createBookingUseCase = new CreateBookingUseCase(bookingsRepository);
@@ -23,10 +24,13 @@ describe("CreateBookingUseCase", () => {
             status: "CONFIRMED",
         };
 
-        await createBookingUseCase.execute(request);
+        bookingsRepository.create.mockResolvedValueOnce("booking-123");
 
+        const result = await createBookingUseCase.execute(request);
+        
         expect(bookingsRepository.create).toHaveBeenCalledWith(request);
         expect(bookingsRepository.create).toHaveBeenCalledTimes(1);
+        expect(result).toBe("booking-123");
     });
 
     it("should throw an error if guestId is missing", async () => {
