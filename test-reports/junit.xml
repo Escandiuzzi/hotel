@@ -1,85 +1,85 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuites name="jest tests" tests="32" failures="0" errors="0" time="3.251">
-  <testsuite name="LoginEmployeeUseCase" errors="0" failures="0" skipped="0" timestamp="2025-10-08T23:26:18" time="1.685" tests="4">
-    <testcase classname="LoginEmployeeUseCase should throw an error if login is missing" name="LoginEmployeeUseCase should throw an error if login is missing" time="0.007">
+<testsuites name="jest tests" tests="32" failures="0" errors="0" time="3.012">
+  <testsuite name="GetAllBookingsUseCase" errors="0" failures="0" skipped="0" timestamp="2025-10-20T16:45:26" time="1.9" tests="2">
+    <testcase classname="GetAllBookingsUseCase should return all bookings from the repository" name="GetAllBookingsUseCase should return all bookings from the repository" time="0.004">
     </testcase>
-    <testcase classname="LoginEmployeeUseCase should throw an error if password is missing" name="LoginEmployeeUseCase should throw an error if password is missing" time="0.003">
-    </testcase>
-    <testcase classname="LoginEmployeeUseCase should throw an error if credentials are invalid" name="LoginEmployeeUseCase should throw an error if credentials are invalid" time="0.001">
-    </testcase>
-    <testcase classname="LoginEmployeeUseCase should return employee data on successful login" name="LoginEmployeeUseCase should return employee data on successful login" time="0.001">
+    <testcase classname="GetAllBookingsUseCase should return an empty array if no bookings exist" name="GetAllBookingsUseCase should return an empty array if no bookings exist" time="0">
     </testcase>
   </testsuite>
-  <testsuite name="UpdateBookingUseCase" errors="0" failures="0" skipped="0" timestamp="2025-10-08T23:26:18" time="1.796" tests="4">
-    <testcase classname="UpdateBookingUseCase should update a booking successfully when valid data is provided" name="UpdateBookingUseCase should update a booking successfully when valid data is provided" time="0.027">
+  <testsuite name="UpdateBookingUseCase" errors="0" failures="0" skipped="0" timestamp="2025-10-20T16:45:26" time="1.93" tests="4">
+    <testcase classname="UpdateBookingUseCase should update a booking successfully when valid data is provided" name="UpdateBookingUseCase should update a booking successfully when valid data is provided" time="0.005">
     </testcase>
-    <testcase classname="UpdateBookingUseCase should throw an error if booking ID is missing" name="UpdateBookingUseCase should throw an error if booking ID is missing" time="0.043">
+    <testcase classname="UpdateBookingUseCase should throw an error if booking ID is missing" name="UpdateBookingUseCase should throw an error if booking ID is missing" time="0.006">
     </testcase>
     <testcase classname="UpdateBookingUseCase should throw an error if the booking is not found" name="UpdateBookingUseCase should throw an error if the booking is not found" time="0.002">
     </testcase>
-    <testcase classname="UpdateBookingUseCase should update only the provided fields" name="UpdateBookingUseCase should update only the provided fields" time="0.003">
+    <testcase classname="UpdateBookingUseCase should update only the provided fields" name="UpdateBookingUseCase should update only the provided fields" time="0.001">
     </testcase>
   </testsuite>
-  <testsuite name="CreateBookingUseCase" errors="0" failures="0" skipped="0" timestamp="2025-10-08T23:26:18" time="2.179" tests="5">
-    <testcase classname="CreateBookingUseCase should create a booking with valid data" name="CreateBookingUseCase should create a booking with valid data" time="0.019">
+  <testsuite name="UpdateGuestUseCase" errors="0" failures="0" skipped="0" timestamp="2025-10-20T16:45:26" time="2.036" tests="4">
+    <testcase classname="UpdateGuestUseCase should update a guest successfully with valid data" name="UpdateGuestUseCase should update a guest successfully with valid data" time="0.008">
     </testcase>
-    <testcase classname="CreateBookingUseCase should throw an error if guestId is missing" name="CreateBookingUseCase should throw an error if guestId is missing" time="0.011">
+    <testcase classname="UpdateGuestUseCase should throw an error if guest ID is missing" name="UpdateGuestUseCase should throw an error if guest ID is missing" time="0.009">
+    </testcase>
+    <testcase classname="UpdateGuestUseCase should throw an error if guest is not found" name="UpdateGuestUseCase should throw an error if guest is not found" time="0.003">
+    </testcase>
+    <testcase classname="UpdateGuestUseCase should update only provided fields" name="UpdateGuestUseCase should update only provided fields" time="0.082">
+    </testcase>
+  </testsuite>
+  <testsuite name="CreateEmployeeUseCase" errors="0" failures="0" skipped="0" timestamp="2025-10-20T16:45:26" time="2.037" tests="4">
+    <testcase classname="CreateEmployeeUseCase should create an employee when all fields are provided" name="CreateEmployeeUseCase should create an employee when all fields are provided" time="0.01">
+    </testcase>
+    <testcase classname="CreateEmployeeUseCase should throw an error if name is missing" name="CreateEmployeeUseCase should throw an error if name is missing" time="0.004">
+    </testcase>
+    <testcase classname="CreateEmployeeUseCase should throw an error if login is missing" name="CreateEmployeeUseCase should throw an error if login is missing" time="0.001">
+    </testcase>
+    <testcase classname="CreateEmployeeUseCase should throw an error if password is missing" name="CreateEmployeeUseCase should throw an error if password is missing" time="0.029">
+    </testcase>
+  </testsuite>
+  <testsuite name="CreateGuestUseCase" errors="0" failures="0" skipped="0" timestamp="2025-10-20T16:45:26" time="2.086" tests="5">
+    <testcase classname="CreateGuestUseCase should create a guest with valid data" name="CreateGuestUseCase should create a guest with valid data" time="0.023">
+    </testcase>
+    <testcase classname="CreateGuestUseCase should throw an error if name is missing" name="CreateGuestUseCase should throw an error if name is missing" time="0.01">
+    </testcase>
+    <testcase classname="CreateGuestUseCase should throw an error if phone is missing" name="CreateGuestUseCase should throw an error if phone is missing" time="0.001">
+    </testcase>
+    <testcase classname="CreateGuestUseCase should throw an error if email is missing" name="CreateGuestUseCase should throw an error if email is missing" time="0.002">
+    </testcase>
+    <testcase classname="CreateGuestUseCase should throw an error if document is missing" name="CreateGuestUseCase should throw an error if document is missing" time="0.001">
+    </testcase>
+  </testsuite>
+  <testsuite name="CreateBookingUseCase" errors="0" failures="0" skipped="0" timestamp="2025-10-20T16:45:26" time="2.283" tests="5">
+    <testcase classname="CreateBookingUseCase should create a booking with valid data" name="CreateBookingUseCase should create a booking with valid data" time="0.006">
+    </testcase>
+    <testcase classname="CreateBookingUseCase should throw an error if guestId is missing" name="CreateBookingUseCase should throw an error if guestId is missing" time="0.054">
     </testcase>
     <testcase classname="CreateBookingUseCase should throw an error if entryDate is missing" name="CreateBookingUseCase should throw an error if entryDate is missing" time="0.001">
     </testcase>
     <testcase classname="CreateBookingUseCase should throw an error if departureDate is missing" name="CreateBookingUseCase should throw an error if departureDate is missing" time="0.001">
     </testcase>
-    <testcase classname="CreateBookingUseCase should throw an error if status is missing" name="CreateBookingUseCase should throw an error if status is missing" time="0.001">
+    <testcase classname="CreateBookingUseCase should throw an error if status is missing" name="CreateBookingUseCase should throw an error if status is missing" time="0.03">
     </testcase>
   </testsuite>
-  <testsuite name="UpdateGuestUseCase" errors="0" failures="0" skipped="0" timestamp="2025-10-08T23:26:18" time="2.354" tests="4">
-    <testcase classname="UpdateGuestUseCase should update a guest successfully with valid data" name="UpdateGuestUseCase should update a guest successfully with valid data" time="0.011">
+  <testsuite name="GetAllEmployeesUseCase" errors="0" failures="0" skipped="0" timestamp="2025-10-20T16:45:28" time="0.345" tests="2">
+    <testcase classname="GetAllEmployeesUseCase should return all employees from the repository" name="GetAllEmployeesUseCase should return all employees from the repository" time="0.009">
     </testcase>
-    <testcase classname="UpdateGuestUseCase should throw an error if guest ID is missing" name="UpdateGuestUseCase should throw an error if guest ID is missing" time="0.014">
-    </testcase>
-    <testcase classname="UpdateGuestUseCase should throw an error if guest is not found" name="UpdateGuestUseCase should throw an error if guest is not found" time="0">
-    </testcase>
-    <testcase classname="UpdateGuestUseCase should update only provided fields" name="UpdateGuestUseCase should update only provided fields" time="0.001">
+    <testcase classname="GetAllEmployeesUseCase should return an empty array if no employees exist" name="GetAllEmployeesUseCase should return an empty array if no employees exist" time="0.001">
     </testcase>
   </testsuite>
-  <testsuite name="GetAllEmployeesUseCase" errors="0" failures="0" skipped="0" timestamp="2025-10-08T23:26:18" time="2.573" tests="2">
-    <testcase classname="GetAllEmployeesUseCase should return all employees from the repository" name="GetAllEmployeesUseCase should return all employees from the repository" time="0.003">
-    </testcase>
-    <testcase classname="GetAllEmployeesUseCase should return an empty array if no employees exist" name="GetAllEmployeesUseCase should return an empty array if no employees exist" time="0.002">
-    </testcase>
-  </testsuite>
-  <testsuite name="CreateEmployeeUseCase" errors="0" failures="0" skipped="0" timestamp="2025-10-08T23:26:18" time="2.621" tests="4">
-    <testcase classname="CreateEmployeeUseCase should create an employee when all fields are provided" name="CreateEmployeeUseCase should create an employee when all fields are provided" time="0.006">
-    </testcase>
-    <testcase classname="CreateEmployeeUseCase should throw an error if name is missing" name="CreateEmployeeUseCase should throw an error if name is missing" time="0.008">
-    </testcase>
-    <testcase classname="CreateEmployeeUseCase should throw an error if login is missing" name="CreateEmployeeUseCase should throw an error if login is missing" time="0.001">
-    </testcase>
-    <testcase classname="CreateEmployeeUseCase should throw an error if password is missing" name="CreateEmployeeUseCase should throw an error if password is missing" time="0.001">
-    </testcase>
-  </testsuite>
-  <testsuite name="GetAllBookingsUseCase" errors="0" failures="0" skipped="0" timestamp="2025-10-08T23:26:18" time="2.604" tests="2">
-    <testcase classname="GetAllBookingsUseCase should return all bookings from the repository" name="GetAllBookingsUseCase should return all bookings from the repository" time="0.007">
-    </testcase>
-    <testcase classname="GetAllBookingsUseCase should return an empty array if no bookings exist" name="GetAllBookingsUseCase should return an empty array if no bookings exist" time="0.001">
-    </testcase>
-  </testsuite>
-  <testsuite name="CreateGuestUseCase" errors="0" failures="0" skipped="0" timestamp="2025-10-08T23:26:20" time="0.959" tests="5">
-    <testcase classname="CreateGuestUseCase should create a guest with valid data" name="CreateGuestUseCase should create a guest with valid data" time="0.009">
-    </testcase>
-    <testcase classname="CreateGuestUseCase should throw an error if name is missing" name="CreateGuestUseCase should throw an error if name is missing" time="0.01">
-    </testcase>
-    <testcase classname="CreateGuestUseCase should throw an error if phone is missing" name="CreateGuestUseCase should throw an error if phone is missing" time="0.002">
-    </testcase>
-    <testcase classname="CreateGuestUseCase should throw an error if email is missing" name="CreateGuestUseCase should throw an error if email is missing" time="0">
-    </testcase>
-    <testcase classname="CreateGuestUseCase should throw an error if document is missing" name="CreateGuestUseCase should throw an error if document is missing" time="0.001">
-    </testcase>
-  </testsuite>
-  <testsuite name="GetAllGuestsUseCase" errors="0" failures="0" skipped="0" timestamp="2025-10-08T23:26:20" time="0.77" tests="2">
+  <testsuite name="GetAllGuestsUseCase" errors="0" failures="0" skipped="0" timestamp="2025-10-20T16:45:28" time="0.388" tests="2">
     <testcase classname="GetAllGuestsUseCase should return all guests from the repository" name="GetAllGuestsUseCase should return all guests from the repository" time="0.001">
     </testcase>
     <testcase classname="GetAllGuestsUseCase should return an empty array if no guests exist" name="GetAllGuestsUseCase should return an empty array if no guests exist" time="0">
+    </testcase>
+  </testsuite>
+  <testsuite name="LoginEmployeeUseCase" errors="0" failures="0" skipped="0" timestamp="2025-10-20T16:45:26" time="2.369" tests="4">
+    <testcase classname="LoginEmployeeUseCase should throw an error if login is missing" name="LoginEmployeeUseCase should throw an error if login is missing" time="0.006">
+    </testcase>
+    <testcase classname="LoginEmployeeUseCase should throw an error if password is missing" name="LoginEmployeeUseCase should throw an error if password is missing" time="0.001">
+    </testcase>
+    <testcase classname="LoginEmployeeUseCase should throw an error if credentials are invalid" name="LoginEmployeeUseCase should throw an error if credentials are invalid" time="0">
+    </testcase>
+    <testcase classname="LoginEmployeeUseCase should return employee data on successful login" name="LoginEmployeeUseCase should return employee data on successful login" time="0.001">
     </testcase>
   </testsuite>
 </testsuites>
