@@ -1,46 +1,78 @@
 generator client {
-  provider = "prisma-client-js"
+  provider      = "prisma-client-js"
   binaryTargets = ["native", "rhel-openssl-3.0.x"]
 }
 
+// datasource db {
+//   provider  = "postgresql"
+//   url       = env("DATABASE_URL")
+//   directUrl = env("DIRECT_URL")
+// }
+
 datasource db {
-  provider  = "postgresql"
-  url       = env("DATABASE_URL")
-  directUrl = env("DIRECT_URL")
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Guest {
+  id        String    @id @default(uuid())
+  name      String
+  age       Int?
+  document  String    @unique
+  phone     String
+  email     String
+  bookings  Booking[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
 }
 
 model Employee {
-  id String @id @default(uuid())
-
-  name     String
-  login    String @unique
-  password String
-
-  @@map("employees")
+  id        String   @id @default(uuid())
+  name      String
+  login     String   @unique
+  password  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Booking {
-  id              String    @id @default(uuid())
+  id              String           @id @default(uuid())
+  guestId         String
+  room            String?
+  roomType        String?
   reservationDate DateTime?
   entryDate       DateTime
   departureDate   DateTime
   status          String
-  room            String?
+  guest           Guest            @relation(fields: [guestId], references: [id])
+  services        BookingService[]
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
 
-  guestId String
-  guest   Guest  @relation(fields: [guestId], references: [id])
-
-  @@map("bookings")
+  @@index([guestId])
 }
 
-model Guest {
-  id String @id @default(uuid())
+model Service {
+  id          String           @id @default(uuid())
+  name        String
+  description String?
+  price       Float
+  isActive    Boolean          @default(true)
+  bookings    BookingService[]
+  createdAt   DateTime         @default(now())
+  updatedAt   DateTime         @updatedAt
+}
 
-  name     String
-  phone    String
-  email    String    @unique
-  document String    @unique
-  Booking  Booking[]
+model BookingService {
+  id        String   @id @default(uuid())
+  bookingId String
+  serviceId String
+  quantity  Int      @default(1)
+  booking   Booking  @relation(fields: [bookingId], references: [id], onDelete: Cascade)
+  service   Service  @relation(fields: [serviceId], references: [id])
+  createdAt DateTime @default(now())
 
-  @@map("guests")
+  @@unique([bookingId, serviceId])
+  @@index([bookingId])
+  @@index([serviceId])
 }

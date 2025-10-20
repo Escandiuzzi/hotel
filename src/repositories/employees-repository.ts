@@ -17,5 +17,5 @@ export interface EmployeeMinimalData {
 export interface EmployeesRepository {
     create: (data: EmployeeCreateData) => Promise<void>;
     get: (data: EmployeeLoginData) => Promise<EmployeeMinimalData | null>;
-    getAll: () => Promise<EmployeeMinimalData[] | null>;
+    getAll: () => Promise<EmployeeMinimalData[]>;
 }

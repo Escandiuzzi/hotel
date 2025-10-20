@@ -10,25 +10,37 @@ describe("GetAllGuestsUseCase", () => {
             create: jest.fn(),
             update: jest.fn(),
             getAll: jest.fn(),
+            getById: jest.fn(),
+            getByCpf: jest.fn(),
         };
         getAllGuestsUseCase = new GetAllGuestsUseCase(guestsRepository);
     });
 
-    it("should return all guests from the repository", async () => {
+    it("deve retornar todos os hóspedes do repositório", async () => {
         const mockGuests = [
             {
-                id: "guest-1",
-                name: "Alice Johnson",
-                phone: "+55 11 99999-8888",
-                email: "alice@example.com",
-                document: "12345678900",
+                id: "hospede-1",
+                name: "Camila Rodrigues",
+                age: 27,
+                phone: "(11) 98765-4321",
+                email: "camila.rodrigues@email.com",
+                document: "123.456.789-00",
             },
             {
-                id: "guest-2",
-                name: "Bob Smith",
-                phone: "+55 21 98888-7777",
-                email: "bob@example.com",
-                document: "98765432100",
+                id: "hospede-2",
+                name: "Eduardo Martins",
+                age: 42,
+                phone: "(21) 99876-5432",
+                email: "eduardo.martins@email.com",
+                document: "987.654.321-00",
+            },
+            {
+                id: "hospede-3",
+                name: "Gabriela Souza",
+                age: 35,
+                phone: "(31) 97654-3210",
+                email: "gabriela.souza@email.com",
+                document: "456.789.123-00",
             },
         ];
 
@@ -40,7 +52,7 @@ describe("GetAllGuestsUseCase", () => {
         expect(result).toEqual(mockGuests);
     });
 
-    it("should return an empty array if no guests exist", async () => {
+    it("deve retornar um array vazio se não existirem hóspedes", async () => {
         guestsRepository.getAll.mockResolvedValue([]);
 
         const result = await getAllGuestsUseCase.execute();

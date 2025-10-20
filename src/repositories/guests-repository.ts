@@ -3,6 +3,7 @@ export interface GuestCreateData {
     phone: string;
     email: string;
     document: string;
+    age: number;
 }
 
 export interface GuestData {
@@ -11,10 +12,16 @@ export interface GuestData {
     phone: string;
     email: string;
     document: string;
+    age: number | null;
 }
 
 export interface GuestsRepository {
     create: (data: GuestCreateData) => Promise<string>;
-    update: (id: string, data: Partial<GuestCreateData>) => Promise<GuestData | null>;
-    getAll: () => Promise<GuestData[] | null>;
+    update: (
+        id: string,
+        data: Partial<GuestCreateData>
+    ) => Promise<GuestData | null>;
+    getAll: () => Promise<GuestData[]>;
+    getById: (id: string) => Promise<GuestData | null>;
+    getByCpf: (cpf: string) => Promise<GuestData | null>;
 }

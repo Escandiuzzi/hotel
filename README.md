@@ -74,35 +74,129 @@ npm run test:watch
 
 ---
 
-## 🔑 Example API Requests
-
-### Create Employee
-
 **POST** `/employees`
 
 ```json
 {
-  "name": "Alice Smith",
-  "login": "alicesmith",
-  "password": "SecurePass!2025"
+  "name": "Ana Costa",
+  "login": "anacosta",
+  "password": "SenhaSegura@2025"
 }
 ```
 
-### Get All Employees
+---
 
-**GET** `/employees`
+**POST** `/employees/login`
 
-Response:
+```json
+{
+  "login": "anacosta",
+  "password": "SenhaSegura@2025"
+}
+```
+
+```json
+{
+  "name": "Ana Costa",
+  "login": "anacosta"
+}
+```
+
+---
+
+**POST** `/guests`
+
+```json
+{
+  "name": "Lucas Santos",
+  "age": 34,
+  "phone": "(11) 98888-7777",
+  "email": "lucas.almeida@email.com",
+  "document": "123.456.789-00"
+}
+```
+
+```json
+{
+  "id": "hospede-abc123"
+}
+```
+
+---
+
+**GET** `/guests`
 
 ```json
 [
   {
-    "name": "Alice Smith",
-    "login": "alicesmith"
-  },
+    "id": "hospede-123",
+    "name": "Lucas Santos",
+    "age": 34,
+    "phone": "(11) 98888-7777",
+    "email": "lucas.almeida@email.com",
+    "document": "123.456.789-00"
+  }
+]
+```
+
+---
+
+**POST** `/bookings`
+
+```json
+{
+  "guestId": "hospede-123",
+  "room": "204",
+  "reservationDate": "2025-11-20T10:00:00Z",
+  "entryDate": "2025-11-25T14:00:00Z",
+  "departureDate": "2025-11-30T12:00:00Z",
+  "status": "CONFIRMADA",
+  "serviceIds": ["servico-1", "servico-3"]
+}
+```
+
+```json
+{
+  "id": "reserva-xyz789"
+}
+```
+
+---
+
+**PUT** `/bookings/:id`
+
+```json
+{
+  "status": "CHECK-IN REALIZADO",
+  "serviceIds": ["servico-2"]
+}
+```
+
+```json
+{
+  "id": "reserva-xyz789",
+  "guestName": "Lucas Santos",
+  "room": "204",
+  "status": "CHECK-IN REALIZADO",
+  "services": [
+    { "serviceId": "servico-2", "serviceName": "Café da Manhã", "price": 35.0 }
+  ]
+}
+```
+
+---
+
+**GET** `/bookings`
+
+```json
+[
   {
-    "name": "John Doe",
-    "login": "johndoe"
+    "id": "reserva-xyz789",
+    "guestName": "Lucas Santos",
+    "room": "204",
+    "entryDate": "2025-11-25T14:00:00Z",
+    "departureDate": "2025-11-30T12:00:00Z",
+    "status": "CONFIRMADA"
   }
 ]
 ```
@@ -111,16 +205,16 @@ Response:
 
 ## 📦 Tech Stack
 
-* Node.js + TypeScript
-* Express.js
-* Prisma ORM
-* SQLite
-* Jest for testing
-* GitHub Actions for CI
+- Node.js + TypeScript
+- Express.js
+- Prisma ORM
+- SQLite
+- Jest for testing
+- GitHub Actions for CI
 
 ---
 
 ## ⚡ Notes
 
-* Passwords are hashed with MD5 before saving. For production, consider using **bcrypt** or **argon2**.
-* Prisma client must be regenerated if you update `schema.prisma`.
+- Passwords are hashed with MD5 before saving. For production, consider using **bcrypt** or **argon2**.
+- Prisma client must be regenerated if you update `schema.prisma`.

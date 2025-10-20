@@ -10,78 +10,100 @@ describe("CreateGuestUseCase", () => {
             create: jest.fn(),
             update: jest.fn(),
             getAll: jest.fn(),
+            getById: jest.fn(),
+            getByCpf: jest.fn(),
         };
         createGuestUseCase = new CreateGuestUseCase(guestsRepository);
     });
 
-    it("should create a guest with valid data", async () => {
+    it("deve criar um hóspede com dados válidos", async () => {
         const request = {
-            name: "Alice Johnson",
-            phone: "+55 11 99999-8888",
-            email: "alice.johnson@example.com",
-            document: "12345678900",
+            name: "Beatriz Oliveira",
+            phone: "(11) 98765-4321",
+            email: "beatriz.oliveira@email.com",
+            document: "123.456.789-00",
+            age: 31,
         };
 
-        guestsRepository.create.mockResolvedValueOnce("guest-123");
+        guestsRepository.create.mockResolvedValueOnce("hospede-123");
 
         const result = await createGuestUseCase.execute(request);
 
         expect(guestsRepository.create).toHaveBeenCalledWith(request);
-        expect(result).toBe("guest-123");
+        expect(result).toBe("hospede-123");
     });
 
-    it("should throw an error if name is missing", async () => {
+    it("deve lançar erro se o nome estiver faltando", async () => {
         const request: any = {
-            phone: "12345",
-            email: "guest@example.com",
-            document: "11111111111",
+            phone: "(31) 97654-3210",
+            email: "hospede@email.com",
+            document: "111.111.111-11",
+            age: 25,
         };
 
-        await expect(createGuestUseCase.execute(request))
-            .rejects
-            .toThrow("Name is required");
+        await expect(createGuestUseCase.execute(request)).rejects.toThrow(
+            "Name is required"
+        );
 
         expect(guestsRepository.create).not.toHaveBeenCalled();
     });
 
-    it("should throw an error if phone is missing", async () => {
+    it("deve lançar erro se o telefone estiver faltando", async () => {
         const request: any = {
-            name: "Bob",
-            email: "guest@example.com",
-            document: "11111111111",
+            name: "Mariana Costa",
+            email: "mariana.costa@email.com",
+            document: "222.222.222-22",
+            age: 28,
         };
 
-        await expect(createGuestUseCase.execute(request))
-            .rejects
-            .toThrow("Phone is required");
+        await expect(createGuestUseCase.execute(request)).rejects.toThrow(
+            "Phone is required"
+        );
 
         expect(guestsRepository.create).not.toHaveBeenCalled();
     });
 
-    it("should throw an error if email is missing", async () => {
+    it("deve lançar erro se o email estiver faltando", async () => {
         const request: any = {
-            name: "Charlie",
-            phone: "12345",
-            document: "11111111111",
+            name: "Paulo Ferreira",
+            phone: "(41) 98765-1234",
+            document: "333.333.333-33",
+            age: 45,
         };
 
-        await expect(createGuestUseCase.execute(request))
-            .rejects
-            .toThrow("Email is required");
+        await expect(createGuestUseCase.execute(request)).rejects.toThrow(
+            "Email is required"
+        );
 
         expect(guestsRepository.create).not.toHaveBeenCalled();
     });
 
-    it("should throw an error if document is missing", async () => {
+    it("deve lançar erro se o documento estiver faltando", async () => {
         const request: any = {
-            name: "David",
-            phone: "12345",
-            email: "guest@example.com",
+            name: "Juliana Santos",
+            phone: "(51) 97654-9876",
+            email: "juliana.santos@email.com",
+            age: 33,
         };
 
-        await expect(createGuestUseCase.execute(request))
-            .rejects
-            .toThrow("Document is required");
+        await expect(createGuestUseCase.execute(request)).rejects.toThrow(
+            "Document is required"
+        );
+
+        expect(guestsRepository.create).not.toHaveBeenCalled();
+    });
+
+    it("deve lançar erro se a idade estiver faltando", async () => {
+        const request: any = {
+            name: "Roberto Lima",
+            phone: "(61) 99876-5432",
+            email: "roberto.lima@email.com",
+            document: "444.444.444-44",
+        };
+
+        await expect(createGuestUseCase.execute(request)).rejects.toThrow(
+            "Age is required"
+        );
 
         expect(guestsRepository.create).not.toHaveBeenCalled();
     });
