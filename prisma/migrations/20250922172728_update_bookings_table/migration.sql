@@ -1,37 +1,31 @@
--- CreateTable
-CREATE TABLE "employees" (
-    "id" TEXT NOT NULL PRIMARY KEY,
-    "name" TEXT NOT NULL,
-    "login" TEXT NOT NULL,
-    "password" TEXT NOT NULL
+CREATE EXTENSION IF NOT EXISTS "pgcrypto";
+
+CREATE TABLE employees (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    name TEXT NOT NULL,
+    login TEXT NOT NULL UNIQUE,
+    password TEXT NOT NULL
 );
 
--- CreateTable
-CREATE TABLE "bookings" (
-    "id" TEXT NOT NULL PRIMARY KEY,
-    "reservationDate" DATETIME,
-    "entryDate" DATETIME NOT NULL,
-    "departureDate" DATETIME NOT NULL,
-    "status" TEXT NOT NULL,
-    "room" TEXT,
-    "guestId" TEXT NOT NULL,
-    CONSTRAINT "bookings_guestId_fkey" FOREIGN KEY ("guestId") REFERENCES "guests" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
+CREATE TABLE guests (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    name TEXT NOT NULL,
+    phone TEXT NOT NULL,
+    email TEXT NOT NULL UNIQUE,
+    document TEXT NOT NULL UNIQUE
 );
 
--- CreateTable
-CREATE TABLE "guests" (
-    "id" TEXT NOT NULL PRIMARY KEY,
-    "name" TEXT NOT NULL,
-    "phone" TEXT NOT NULL,
-    "email" TEXT NOT NULL,
-    "document" TEXT NOT NULL
+CREATE TABLE bookings (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    reservation_date TIMESTAMP,
+    entry_date TIMESTAMP NOT NULL,
+    departure_date TIMESTAMP NOT NULL,
+    status TEXT NOT NULL,
+    room TEXT,
+    guest_id UUID NOT NULL,
+    CONSTRAINT bookings_guest_id_fkey
+        FOREIGN KEY (guest_id)
+        REFERENCES guests (id)
+        ON DELETE RESTRICT
+        ON UPDATE CASCADE
 );
-
--- CreateIndex
-CREATE UNIQUE INDEX "employees_login_key" ON "employees"("login");
-
--- CreateIndex
-CREATE UNIQUE INDEX "guests_email_key" ON "guests"("email");
-
--- CreateIndex
-CREATE UNIQUE INDEX "guests_document_key" ON "guests"("document");
