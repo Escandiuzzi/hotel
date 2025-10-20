@@ -73,7 +73,7 @@ export class PrismaBookingsRepository implements BookingsRepository {
             }
         });
 
-        return bookings.map(b => ({
+        return bookings.map((b: any) => ({
             id: b.id,
             guestName: b.guest.name,
             room: b.room,
