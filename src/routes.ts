@@ -21,6 +21,11 @@ import { DeleteServiceUseCase } from "./use-cases/service/delete-service-use-cas
 import { GetAllServicesUseCase } from "./use-cases/service/get-all-services-use-case";
 import { GetGuestByCpfUseCase } from "./use-cases/guest/get-guest-by-cpf-use-case";
 
+import { PrismaReportRepository } from "./repositories/prisma/prisma-report-repository";
+import { GetGuestReportUseCase } from "./use-cases/report/get-guest-report-use-case";
+import { GetBookingReportPeriodUseCase } from "./use-cases/report/get-booking-report-period-use-case";
+import { guestReportPDF, bookingPeriodPDF } from "./utils/pdf";
+
 export const routes = express.Router();
 
 routes.get("/", (req, res) => {
@@ -211,4 +216,32 @@ routes.get("/guests/cpf/:cpf", async (req, res) => {
   }
 
   return res.status(200).send(result);
+});
+
+routes.get("/reports/guest/:id", async (req, res) => {
+    const { id } = req.params;
+
+    const repo = new PrismaReportRepository();
+    const usecase = new GetGuestReportUseCase(repo);
+
+    try {
+        const guest = await usecase.execute(id);
+        return guestReportPDF(res, guest);
+    } catch (err: any) {
+        return res.status(400).send({ message: err.message });
+    }
+});
+
+routes.get("/reports/bookings", async (req, res) => {
+    const { from, to } = req.query as { from: string; to: string };
+
+    const repo = new PrismaReportRepository();
+    const usecase = new GetBookingReportPeriodUseCase(repo);
+
+    try {
+        const bookings = await usecase.execute(from, to);
+        return bookingPeriodPDF(res, bookings, from, to);
+    } catch (err: any) {
+        return res.status(400).send({ message: err.message });
+    }
 });
