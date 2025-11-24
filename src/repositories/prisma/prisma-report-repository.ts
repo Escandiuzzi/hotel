@@ -1,4 +1,3 @@
-// repositories/prisma/prisma-report-repository.ts
 import { prisma } from "../../prisma";
 import { ReportRepository } from "../report-repository";
 

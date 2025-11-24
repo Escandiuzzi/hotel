@@ -1,4 +1,3 @@
-// utils/pdf.ts
 import PDFDocument from "pdfkit";
 import { Response } from "express";
 
