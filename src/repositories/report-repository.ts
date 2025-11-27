@@ -1,4 +1,4 @@
 export interface ReportRepository {
-    getGuestReport: (guestId: string) => Promise<any>;
+    getGuestReportByCpf: (cpf: string) => Promise<any>;
     getBookingReportByPeriod: (from: Date, to: Date) => Promise<any[]>;
 }

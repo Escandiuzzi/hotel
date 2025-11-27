@@ -2,23 +2,20 @@ import { prisma } from "../../prisma";
 import { ReportRepository } from "../report-repository";
 
 export class PrismaReportRepository implements ReportRepository {
-    async getGuestReport(guestId: string) {
-        const guest = await prisma.guest.findUnique({
-            where: { id: guestId },
+    async getGuestReportByCpf(cpf: string) {
+        return await prisma.guest.findUnique({
+            where: { document: cpf },
             include: {
                 bookings: {
                     include: {
                         services: {
-                            include: { service: true }
-                        }
-                    }
-                }
-            }
+                            include: { service: true },
+                        },
+                    },
+                },
+            },
         });
-
-        return guest;
     }
-
     async getBookingReportByPeriod(from: Date, to: Date) {
         const bookings = await prisma.booking.findMany({
             where: {

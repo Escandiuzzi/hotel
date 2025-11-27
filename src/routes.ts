@@ -218,30 +218,30 @@ routes.get("/guests/cpf/:cpf", async (req, res) => {
   return res.status(200).send(result);
 });
 
-routes.get("/reports/guest/:id", async (req, res) => {
-    const { id } = req.params;
+routes.get("/reports/guest/cpf/:cpf", async (req, res) => {
+  const { cpf } = req.params;
 
-    const repo = new PrismaReportRepository();
-    const usecase = new GetGuestReportUseCase(repo);
+  const repo = new PrismaReportRepository();
+  const usecase = new GetGuestReportUseCase(repo);
 
-    try {
-        const guest = await usecase.execute(id);
-        return guestReportPDF(res, guest);
-    } catch (err: any) {
-        return res.status(400).send({ message: err.message });
-    }
+  try {
+    const guest = await usecase.execute(cpf.replace(/\D/g, ""));
+    return guestReportPDF(res, guest);
+  } catch (err: any) {
+    return res.status(400).send({ message: err.message });
+  }
 });
 
 routes.get("/reports/bookings", async (req, res) => {
-    const { from, to } = req.query as { from: string; to: string };
+  const { from, to } = req.query as { from: string; to: string };
 
-    const repo = new PrismaReportRepository();
-    const usecase = new GetBookingReportPeriodUseCase(repo);
+  const repo = new PrismaReportRepository();
+  const usecase = new GetBookingReportPeriodUseCase(repo);
 
-    try {
-        const bookings = await usecase.execute(from, to);
-        return bookingPeriodPDF(res, bookings, from, to);
-    } catch (err: any) {
-        return res.status(400).send({ message: err.message });
-    }
+  try {
+    const bookings = await usecase.execute(from, to);
+    return bookingPeriodPDF(res, bookings, from, to);
+  } catch (err: any) {
+    return res.status(400).send({ message: err.message });
+  }
 });
